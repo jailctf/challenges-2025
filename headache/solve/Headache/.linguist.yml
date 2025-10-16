@@ -1,0 +1,46 @@
+Headache:
+  extensions:
+    - ".ha"
+
+  default:
+    color: "#000000"
+
+  identifier:
+    color: "#00085B"
+
+  number:
+    color: "#A2AD91"
+
+  string:
+    color: "#A2AD91"
+
+  comment:
+    color: "#28FF37"
+    single_line: "//"
+    begin_multiline: "/*"
+    end_multiline: "*/"
+
+  group:
+    - color: "#D6B62A"
+      operators:
+        - "@"
+        - "+"
+        - "-"
+        - "*"
+        - "/"
+
+      keywords:
+        - "as"
+
+    - color: "#E84855"
+      keywords:
+        - "return"
+        - "while"
+        - "if"
+        - "else"
+    - color: "#00C3FF"
+      keywords:
+        - "void"
+        - "byte"
+        - "short"
+        - "int"

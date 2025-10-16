@@ -1,0 +1,50 @@
+reserved word void
+Var main
+Parenthesis Open
+Parenthesis Close
+Braces Open
+reserved word char
+Var value
+Semicolon
+reserved word short
+Var svalue
+Semicolon
+reserved word if
+Parenthesis Open
+Var value
+Greater
+Int 0
+Parenthesis Close
+Braces Open
+Var svalue
+Equal
+Int 87
+Semicolon
+Braces Close
+reserved word else
+Braces Open
+Var svalue
+Equal
+Int 90
+Semicolon
+Braces Close
+Var printf
+Parenthesis Open
+String: value is %f
+
+Comma
+Var fvalue
+Parenthesis Close
+Semicolon
+Var printf
+Parenthesis Open
+String: END
+
+Parenthesis Close
+Semicolon
+reserved word return
+Int 0
+Semicolon
+Braces Close
+FINISHED READING FILE
+Proccessed 46 tokens in 24 lines

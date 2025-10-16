@@ -1,0 +1,159 @@
+17/11/2017:
+Always creating a new constant at the right will reach out-of-bounds in loops.
+Constants must be checked and optimized.
+
+18/11/2017:
+conditions may be implemented the easy way:
+
+Arithmetic:
+(.)  a > x <=> a-x > 0 
+(.)  a < x <=> x-a > 0
+(.)  a >= x <=> !(a<x)
+(.)  a <= x <=> !(a>x)
+(.)  a == x <=> x-a == 0
+
+Logic:
+(.) if(!x) { block } <=> if(x) {} else { block }
+(.) if(x && y) { block } <=> if(x){ if(y){ block} }
+(.) if(x || y) { block } <=> if(x){ } else { if(y) { block } }
+(.) if(x xor y) { block } <=> if(x){ if (y) else { block } } else { if(y) { block } }
+
+They can be statically solved by operating the AST.
+
+19/11/2017:
+Some considerations in solving return statements:
+
+func() { something(); return; somethingElse(); } <=> func() { something(); return; } // static solve
+func() { ... if(a) { return 0 } else { return 1 } } => return is final statement;
+func() { while(a) { a=a-1; if(b==3){ return x; } } return y; } 
+
+
+Compiler should force return statements to be the last statements or it would not be able to generate code. Headache could also remove this kind of statements since how hard is to implement jumps in brainfuck and how different would be the semantics of this statement compared to languages which use this word (meaning Headache's return would not have "break;" semantics). 
+
+When the return statement is the last statement, as in "return exp", code can be calculated by evaluing exp and moving the result to the reserved accumulator register. This would make it easy to implementing anything like "x=func();" since it is just moving the accumulator register to the variable.
+
+
+20/11/2017: 
+
+Brainfuck Algorithms propose this solution:
+
+while (foo) {
+ if (bar == foo) {
+  if (x > 2) {
+   break;
+  }
+  else {
+   block1
+  }
+  block2
+ }
+ block3
+}
+<=>
+while (foo) {
+ shouldBreak = false
+ if (bar == foo) {
+  if (x > 2) {
+   shouldBreak = true
+  }
+  else {
+   block1
+  }
+  // don't evaluate any more code in the loop after breaking
+  if (!shouldBreak) {
+   block2
+  }
+ }
+ if (shouldBreak) {
+  // so that the loop stops
+  foo = 0
+ }
+ else {
+  block3
+ }
+}
+
+Which would mean solving returns like 
+
+while (foo) {
+ if (bar == foo) {
+  if (x > 2) {
+  	return x;
+  }
+  else {
+   block1
+  }
+  block2
+ }
+ block3
+}
+
+<=>
+
+while (foo) {
+
+ shouldBreak = false
+ if (bar == foo) {
+  if (x > 2) {
+   shouldBreak = true
+   lastvar = x;
+  }
+  else {
+   block1
+  }
+  // don't evaluate any more code in the loop after breaking
+  if (!shouldBreak) {
+   block2
+  }
+ }
+ if (shouldBreak) {
+  // so that the loop stops
+  foo = 0
+ }
+ else {
+  block3
+ }
+ return lastvar;
+}
+
+Still, this would not seem achievable in version 1. Headache isn't that stable yet and this implementation seems prone to many bugs. 
+However, it seems that return statements can be solved by saving possible return values in a special shady variable and adding "ifs" to prevent blocks of code of triggering, representing the "break like" semantics. 
+So, for each return which is not the last statement, it would mean to creating two special variables: One to preserve the return value (if there is one), other to prevent blocks of code from triggering.
+Is it worth it?
+Since the cost of adding two shady variables to control these semantics is inevitable, wouldn't it be better to the compiler to simply detect and raise an error like: 
+"Error: return is not last statement of function, line 131" and leaving to the programmer this type of control and rendering he aware of its safety implications?
+
+5/12/2017:
+
+Headache should have booleans as a base type. Can be called bit, boolean or bool. 
+Should have only assign, to other boolean exps, and toogle operator. 
+true and false can be implemented as boolean constants.
+Logic operators should all return booleans. 
+They can be easy implemented in Headache
+
+9/12/2017:
+
+There is no longer need for compiling to javascript (to run in node.js) to make headache run on Windows. 
+MinGW is able to compile it to .exe. However, the way the scripts are written don't properly work on Windows and render the development environment there quite manual.
+So, Windows builds of hac are possible, but it is not officially supported.
+
+10/12/2017:
+
+Wilfred's bfc can be integrated to headache as an extra/plugin. Make it pre-built into each plataform, being hosted in github branches, and make custom system integration code. It can be downloaded to a tools directory near the installation of Headache binaries.
+
+23/01/2018:
+
+Reading won't simple work in on debugging in interactive mode.
+
+24/01/2018:
+Operations inside while corrupt memory
+
+02/02/2018:
+Two Reading operations with shorts can result in infinite loop if the first one has more digits
+than the second one.
+
+
+
+
+
+

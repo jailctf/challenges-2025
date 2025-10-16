@@ -1,0 +1,4 @@
+int ad () 
+{
+	return true;
+}

@@ -1,0 +1,16 @@
+2
+__self__
+2
+__init__
+2
+__globals__
+1
+__builtins__
+2
+__import__
+3
+_osx_support
+2
+_read_output
+3
+_`bash`

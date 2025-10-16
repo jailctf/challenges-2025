@@ -1,0 +1,14 @@
+Syntax OK
+Tree
+root
+|
+|-DEF LIST
+|  |-DefFunc
+|  |  |-main
+|  |  |-void 
+|  |  |-None
+|  |  |-block{}
+|  |  |  |-DefVarL
+|  |  |  |  |-defVar
+|  |  |  |  |  |-byte 
+|  |  |  |  |  |-a

