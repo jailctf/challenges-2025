@@ -8,41 +8,41 @@ oh boy ...
 
 the input is a git patch, so lets try and see what a git patch looks like and does. we can generate one by using `git diff`
 
-<img width="745" height="261" alt="image" src="https://github.com/user-attachments/assets/b68c614e-8dc0-4758-82c6-482ffb2312f9" />
+<img width="745" height="261" alt="image" src="https://github.com/user-attachments/assets/f338a3c2-869e-440c-be3d-1b83600d15f8" />
 
 we can apply it like so
 
-<img width="702" height="342" alt="image" src="https://github.com/user-attachments/assets/5284bf9d-93ed-43ac-9c6a-32230a261737" />
+<img width="702" height="342" alt="image" src="https://github.com/user-attachments/assets/c2402fd3-d4c0-4430-9707-21ef27c90bc6" />
 
 what if we do it using git stuff to get the filename the same so we can edit `./777`?
 
-<img width="686" height="238" alt="image" src="https://github.com/user-attachments/assets/5f4e0e90-f1f9-4fa9-8b55-b81578d8ecdd" />
+<img width="686" height="238" alt="image" src="https://github.com/user-attachments/assets/aaeaabce-fa61-48f5-8882-191635418dab" />
 
 it worked!! ok so at this point i just started messing around and removing lines
 
 we can remove the `git diff` beginning line, and the `index whatever..whatever whatever` line too
 
-<img width="708" height="166" alt="image" src="https://github.com/user-attachments/assets/41f1cf49-5312-4c64-97a7-42da890f579f" />
+<img width="708" height="166" alt="image" src="https://github.com/user-attachments/assets/f4aabbea-d10b-459a-8d01-473822c60a50" />
 
 it still works!
 
 at this point i also removed the `a/` and `b/` from before 777
 
-<img width="687" height="162" alt="image" src="https://github.com/user-attachments/assets/71db96a8-a39d-4e46-b5ee-b170d034038c" />
+<img width="687" height="162" alt="image" src="https://github.com/user-attachments/assets/8a62192f-1838-41c1-8aba-0ce4b466adbd" />
 
 so in the challenge contents it says that there is a restriction on the number of unique characters (11 max). since jsfuck requires `[]()` for sure, thats 4, so 7 other chars can be used
 
 what if we remove the `1` and replace it with a `7`?
 
-<img width="705" height="171" alt="image" src="https://github.com/user-attachments/assets/47f8d855-e4e2-418f-b4f8-bb1677be7461" />
+<img width="705" height="171" alt="image" src="https://github.com/user-attachments/assets/771e2517-aa5a-4156-885b-f54c659e2e7a" />
 
 it still works somehow!!! ok so at this point we should look at the git patch source and try to see what options we have for characters if we want to modify the 777 file
 
 the relevant code for that starts [here](https://github.com/git/git/blob/master/apply.c#L4753) (code area can be located using error messages)
 
-<img width="738" height="589" alt="image" src="https://github.com/user-attachments/assets/61ab0517-885a-4860-a173-ab46af8e06ac" />
+<img width="738" height="589" alt="image" src="https://github.com/user-attachments/assets/b6a3a5cb-d8d8-476e-8d9a-1c8980173e4e" />
 
-<img width="866" height="457" alt="image" src="https://github.com/user-attachments/assets/3c0849a1-6305-4de5-9eee-34671d8fde21" />
+<img width="866" height="457" alt="image" src="https://github.com/user-attachments/assets/e82e440a-1e06-4360-83a7-8cd32e13ce15" />
 
 ```c
 /*
@@ -155,11 +155,11 @@ of jsfuck. its either `=` or `<` or `>` (im sorry but this is left as an exercis
 
 here is `>` (you can do comparison and right shift)
 
-<img width="503" height="729" alt="image" src="https://github.com/user-attachments/assets/62cd0e8d-0532-4be8-a9c5-cca603c236e9" />
+<img width="503" height="729" alt="image" src="https://github.com/user-attachments/assets/5ab5f1fb-9584-4d19-9414-460d562dd2e4" />
 
 but with `=` it is also possible (you can do `==` comparison and setting variables (yay!!!))
 
-<img width="515" height="532" alt="image" src="https://github.com/user-attachments/assets/3cfa5d64-24f0-42f7-add9-31b52d3f89b2" />
+<img width="515" height="532" alt="image" src="https://github.com/user-attachments/assets/fe1c62af-ff32-4f5e-ab87-03f1acdbb630" />
 
 since this challenge has a very very low character limit, we go with `=` to maximize compression capabilities. it is proven that we can do everything normal jsfuck can in the following ways:
 
@@ -169,7 +169,7 @@ the overall idea is we want to overwrite `7["constructor"]["prototype"][val]` so
 
 (epic javascript moment that is unrelated somewhat)
 
-<img width="453" height="481" alt="image" src="https://github.com/user-attachments/assets/02f2a067-f045-4f12-9bfa-8c1fb5b7dddc" />
+<img width="453" height="481" alt="image" src="https://github.com/user-attachments/assets/3ddf1d51-71ca-4dcf-8b86-725d69599e9b" />
 
 so to recap once we speedrun something like `7['constructor']['prototype'][smth]=7['constructor']['prototype']` (i call it protosub) we can do `7[smth][val]=smth_else` to "set variables" on the proto with something else and do `7[val]` to retrieve that something else very compactly
 
